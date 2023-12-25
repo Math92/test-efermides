@@ -104,39 +104,45 @@ function displayMessage(message, isError) {
     }
 }
 
+async function displayUniqueFacts(month, day) {
+    displayMessage('Loading...', false);
+    const uniqueFacts = await fetchUniqueFacts(month, day, 10);
+    displayFacts(uniqueFacts); // This function should handle the display logic
+}
 
 
 
+async function fetchUniqueFacts(month, day, targetNumberOfFacts) {
+    let uniqueFactsSet = new Set();
+    let attempts = 0;
+    const maxAttempts = 100; // Previene bucles infinitos
 
-async function fetchNumberFact(month, day) {
-    displayMessage('Cargando...', false);
-    const facts = []; // Array para almacenar los hechos
-
-    for (let i = 0; i < 10; i++) {
-        const options = {
-            method: 'GET',
-            url: `https://numbersapi.p.rapidapi.com/${month}/${day}/date`,
-            params: { fragment: 'true', json: 'true' },
-            headers: {
-                'X-RapidAPI-Key': 'a71e103d4bmsh2d23398c391c2ddp1690cajsn1bc2aaf2288a',
-                'X-RapidAPI-Host': 'numbersapi.p.rapidapi.com'
-            }
-        };
-
+    while (uniqueFactsSet.size < targetNumberOfFacts && attempts < maxAttempts) {
+        attempts++;
         try {
-            const response = await axios.request(options);
-            const fact = response.data.text;
-            const year = response.data.year;
-            const fullText = `${fact} (Año: ${year}).`; // Definir fullText aquí
+            const response = await axios.get(`https://numbersapi.p.rapidapi.com/${month}/${day}/date`, {
+                params: { fragment: 'true', json: 'true' },
+                headers: {
+                    'X-RapidAPI-Key': 'a71e103d4bmsh2d23398c391c2ddp1690cajsn1bc2aaf2288a',
+                    'X-RapidAPI-Host': 'numbersapi.p.rapidapi.com'
+                }
+            });
 
-            const translatedFact = await translateText(fullText);
-            facts.push(translatedFact);
+            const factText = response.data.text;
+            const year = response.data.year;
+            const fullFact = `${factText} (Año: ${year}).`;
+
+            if (!uniqueFactsSet.has(fullFact)) {
+                uniqueFactsSet.add(fullFact);
+            }
+
         } catch (error) {
-            console.error(error);
-            displayMessage('Error al obtener datos de la API.', true);
-            return;
+            console.error('Error al obtener hechos:', error);
+            // En caso de error, puedes optar por salir del bucle o manejarlo de otra manera
         }
     }
 
-    displayFacts(facts); // Mostrar todos los hechos traducidos
+    return Array.from(uniqueFactsSet);
 }
+
+// a71e103d4bmsh2d23398c391c2ddp1690cajsn1bc2aaf2288a

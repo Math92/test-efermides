@@ -1,0 +1,123 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 0.7rem;
+    min-height: 100vh;
+    background-image: url('/img/calendario_azteca.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    /* width: 100vw; */
+    overflow-x: hidden;
+}
+
+.container {
+    /* margin: auto; */
+    max-width: 100vw;
+    border: 1px solid #ddd;
+    padding: 1rem;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+input,
+button {
+    border-radius: 10%;
+    margin: 0.7rem 0;
+    padding: 0.7rem;
+    font-size: 1rem;
+}
+
+
+button {
+    background-image: linear-gradient(0deg, grey, red);
+
+    text-align: center;
+}
+
+input {
+    background-color: antiquewhite;
+}
+
+button:hover {
+    background-image: linear-gradient(180deg, grey, red);
+    cursor: pointer;
+}
+#resultsContainer {
+    margin-top: 1.2rem;
+    padding: 0.7rem;
+    border: 1px solid #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90vw;
+    height: 100vh;
+    background-color: rgba(211, 211, 211, 0.6);
+    flex-direction: column;
+}
+
+
+h1 {
+    margin-top: 2rem;
+    background-image: linear-gradient(180deg, grey, red);
+    text-align: center;
+}
+
+
+.fact {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 0.7rem;
+    margin: 5px 0;
+    width: 80vw;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    text-align: left;
+}
+
+@media only screen and (max-width: 860px) {
+    .container {
+        width: 100vw; /* Ajusta el ancho del contenedor al 100% del viewport */
+        padding: 0.5rem; /* Reducir el padding si es necesario */
+    }
+
+    #resultsContainer {
+        width: 100%; /* Hace que el ancho sea el 100% del contenedor padre */
+        height: auto; /* Altura automática para permitir que el contenedor crezca */
+        padding: 0.5rem; /* Reducir el padding si es necesario */
+        overflow-y: auto; /* Añade scroll vertical si el contenido es más alto que el contenedor */
+    }
+
+    .fact {
+        width: calc(100% - 1.4rem); /* 100% del contenedor padre menos el padding horizontal total */
+        margin: 5px auto; /* Centra el hecho en el contenedor si es necesario */
+        padding: 0.5rem; /* Reducir el padding si es necesario */
+    }
+    
+    body, html {
+        height: auto; /* Asegúrate de que el body y html crezcan con el contenido */
+    }
+}
+
+.error-message {
+    /* Estilos para mensaje de error */
+    background-color: #ffdddd;
+}
+
+.loading-message {
+    /* Estilos para mensaje de carga */
+    background-color: #ddd;
+}
+

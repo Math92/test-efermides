@@ -1,42 +1,28 @@
+document.addEventListener('DOMContentLoaded', function() {
+    const monthSelect = document.getElementById('monthInput');
+    const daySelect = document.getElementById('dayInput');
+
+    for (let i = 1; i <= 31; i++) {
+        const option = document.createElement('option');
+        option.value = i;
+        option.textContent = i;
+        daySelect.appendChild(option);
+    }
+});
+
 document.getElementById('fetchButton').addEventListener('click', function () {
-    const monthInput = document.getElementById('monthInput').value;
-    const dayInput = document.getElementById('dayInput').value;
-
-    // Verificar si algún campo está vacío
-    if (!monthInput || !dayInput) {
-        displayMessage('Por favor, completa ambos campos.');
-        return;
-    }
-
-    const month = parseInt(monthInput);
-    const day = parseInt(dayInput);
-
-    // Verificar si los valores son números y están en los rangos válidos
-    if (isNaN(month) || month < 1 || month > 12) {
-        displayMessage('Mes inválido. Por favor, introduce un número del 1 al 12.');
-        return;
-    }
-
-    if (isNaN(day) || day < 1 || day > 31) {
-        displayMessage('Día inválido. Por favor, introduce un número del 1 al 31.');
-        return;
-    }
-
-    // Verificación específica para febrero
-    if (month === 2 && day > 29) {
-        displayMessage('Febrero solo tiene hasta 29 días. Por favor, introduce un día válido.');
-        return;
-    }
+    const month = parseInt(document.getElementById('monthInput').value);
+    const day = parseInt(document.getElementById('dayInput').value);
 
     fetchNumberFact(month, day);
 });
 
 async function translateText(text) {
-    var target_language = "es";
-    var source_language = "en";
+    const target_language = "es";
+    const source_language = "en";
 
-    var url = "https://text-translator2.p.rapidapi.com/translate";
-    var data = {
+    const url = "https://text-translator2.p.rapidapi.com/translate";
+    const data = {
         text: text,
         target_language: target_language,
         source_language: source_language

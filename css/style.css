@@ -21,6 +21,10 @@ body {
     overflow-x: hidden;
 }
 
+select {
+    margin: 0.5rem;
+}
+
 .container {
     /* margin: auto; */
     max-width: 100vw;
@@ -33,24 +37,16 @@ body {
     justify-content: center;
 }
 
-input,
 button {
     border-radius: 10%;
     margin: 0.7rem 0;
     padding: 0.7rem;
     font-size: 1rem;
-}
-
-
-button {
     background-image: linear-gradient(0deg, grey, red);
 
     text-align: center;
 }
 
-input {
-    background-color: antiquewhite;
-}
 
 button:hover {
     background-image: linear-gradient(180deg, grey, red);
